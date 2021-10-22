@@ -28,9 +28,9 @@ namespace ProcessingTaskResultAnalyse
                 List<Task<TimeSpan>> testTasks = new List<Task<TimeSpan>>();
 
                 //Method1:
-                //testTasks.Add(Method1(taskList));
+                testTasks.Add(Method1(taskList));
                 //Method2:
-                //testTasks.Add(Method2(taskList));
+                testTasks.Add(Method2(taskList));
                 //Method3:
                 testTasks.Add(Method3(taskList));
 
