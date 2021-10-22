@@ -28,18 +28,34 @@ namespace ProcessingTaskResultAnalyse
                 List<Task<TimeSpan>> testTasks = new List<Task<TimeSpan>>();
 
                 //Method1:
-                testTasks.Add(Method1(taskList));
+                Task<TimeSpan> method1 = Method1(taskList);
+                testTasks.Add(method1);
                 //Method2:
-                testTasks.Add(Method2(taskList));
+                Task<TimeSpan> method2 = Method2(taskList);
+                testTasks.Add(method2);
                 //Method3:
-                testTasks.Add(Method3(taskList));
+                Task<TimeSpan> method3 = Method3(taskList);
+                testTasks.Add(method3);
 
+                int methodIndex = 0;
                 while (testTasks.Any())
                 {
                     Task<Task<TimeSpan>> t = Task.WhenAny(testTasks);
                     Task<TimeSpan> tSrc = await t;
                     TimeSpan time = await tSrc;
-                    Console.WriteLine($"\"Method{testTasks.IndexOf(tSrc) + 1}\"耗时:{time.TotalMilliseconds}ms");
+                    if (tSrc == method1)
+                    {
+                        methodIndex = 1;
+                    }
+                    else if (tSrc == method2)
+                    {
+                        methodIndex = 2;
+                    }
+                    else
+                    {
+                        methodIndex = 3;
+                    }
+                    Console.WriteLine($"\"Method{methodIndex}\"耗时:{time.TotalMilliseconds}ms");
                     testTasks.Remove(tSrc);
                 }
             }
